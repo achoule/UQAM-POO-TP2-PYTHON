@@ -13,121 +13,126 @@ from src.Vaisseau.TransportCombat import TransportCombat
 
 
 class StationSpatiale(metaclass=Singleton):
-    heavyStock = []
-    lightStock = []
-    TCStock = []
-    transporterStock = []
+    
+    # stoque des différents objets 
+    hangarLourd = []
+    hangarLeger = []
+    hangarTC = []
+    hangarTransporteur = []
 
-    blasterStock = []
-    phaserStock = []
+    hangarBlaster = []
+    hangarPhaser = []
 
-    contenderStock = []
+    hangarConteneur = []
 
-    def createShip(self, type):
+    #Type attendu : lourd / leger / tc ou transport
+    def creerVaisseau(self, type):
 
-        typeUp = type.upper()
+        typeUp = type.upper() #gestion de la casse
 
-        if typeUp == "HEAVY":
-            ship = Combatant()
-            self.heavyStock.append(ship)
-        elif typeUp == "LIGHT":
-            ship = Leger()
-            self.lightStock.append(ship)
+        if typeUp == "LOURD":
+            vaisseau = Combatant()
+            self.hangarLourd.append(vaisseau)
+        elif typeUp == "LEGER":
+            vaisseau = Leger()
+            self.hangarLeger.append(vaisseau)
         elif typeUp == "TC":
-            ship = TransportCombat()
-            self.TCStock.append(ship)
+            vaisseau = TransportCombat()
+            self.hangarTC.append(vaisseau)
         elif typeUp == "TRANSPORT":
-            ship = Transport()
-            self.transporterStock.append(ship)
+            vaisseau = Transport()
+            self.hangarTransporteur.append(vaisseau)
         else:
-            raise ValueError("type must be : heavy / light / TC or transport.")
+            raise ValueError("Le type doit-être : Lourd / Leger / TC ou Transport.")
 
-    def createWeapon(self, type):
+    #type attendu : blaster ou phaser
+    def creerArme(self, type):
 
         typeUp = type.upper()
         if typeUp == "PHASER":
-            weapon = Phaser()
-            self.phaserStock.append(weapon)
+            arme = Phaser()
+            self.hangarPhaser.append(arme)
         elif typeUp == "BLASTER":
-            weapon = Blaster()
-            self.blasterStock.append(weapon)
+            arme = Blaster()
+            self.hangarBlaster.append(arme)
 
-    def createContener(self, masse, volume):
-        contender = Conteneur(masse, volume)
-        self.contenderStock.append(contender)
+    def creerConteneur(self, masse, volume):
+        conteneur = Conteneur(masse, volume)
+        self.hangarConteneur.append(conteneur)
 
-    def equipWeapon(self, id, id_weapon):
-        ship = self.findElement(id)
-        weapon = self.findElement(id_weapon)
+    #referencer l'identifiant du vaisseau à équiper puis de l'arme à mettre dessus
+    def equiperArme(self, id, id_arme):
+        vaisseau = self.rechercherElement(id)
+        arme = self.rechercherElement(id_arme)
 
-        if not isinstance(ship, Combatant):
-            raise ValueError("Ship must be a battleShip !")
+        if not isinstance(vaisseau, Combatant):
+            raise ValueError("Le vaisseau doit-être un vaisseau de combat !")
 
-        if not isinstance(weapon, Arme):
-            raise ValueError("Weapon must be a Weapon !")
+        if not isinstance(arme, Arme):
+            raise ValueError("L'arme doit être une arme valide !")
 
-        if isinstance(weapon, Blaster) and len(self.blasterStock) > 0:
-            ship.equiperArme(weapon)
-            self.blasterStock.remove(weapon)
-        elif isinstance(weapon, Phaser) and len(self.phaserStock) > 0:
-            ship.equiperArme(weapon)
-            self.phaserStock.remove(weapon)
+        if isinstance(arme, Blaster) and len(self.hangarBlaster) > 0:
+            vaisseau.equiperArme(arme)
+            self.hangarBlaster.remove(arme)
+        elif isinstance(arme, Phaser) and len(self.hangarPhaser) > 0:
+            vaisseau.equiperArme(arme)
+            self.hangarPhaser.remove(arme)
         else:
-            raise ValueError("Weapon must be blaster or phaser and available in stock")
+            raise ValueError("arme must be blaster or phaser and available in stock")
 
 
-    def takeOffWeapon(self, id, id_weapon):
-        ship = self.findElement(id)
-        weapon = self.findElement(id_weapon)
+    def retirerArme(self, id, id_arme):
+        vaisseau = self.rechercherElement(id)
+        arme = self.rechercherElement(id_arme)
 
-        ship.removeArme(weapon)
+        vaisseau.retirerArme(arme)
 
-        if isinstance(weapon, Blaster):
-            self.blasterStock.append(weapon)
-        elif isinstance(weapon, Phaser):
-            self.phaserStock.append(weapon)
+        if isinstance(arme, Blaster):
+            self.hangarBlaster.append(arme)
+        elif isinstance(arme, Phaser):
+            self.hangarPhaser.append(arme)
 
-    def chargeStuff(self, id, id_stuff):
-        ship = self.findElement(id)
-        stuff = self.findElement(id_stuff)
+    def chargerFret(self, id, id_stuff):
+        vaisseau = self.rechercherElement(id)
+        fret = self.rechercherElement(id_stuff)
 
-        if not isinstance(ship, Transport):
-            raise ValueError("Ship must be a transporter !")
+        if not isinstance(vaisseau, Transport):
+            raise ValueError("Le vaisseau doit être un transporteur!")
 
 
-        ship.chargeStuff(stuff)
+        vaisseau.chargerFret(fret)
 
-    def removeStuff(self, id, id_stuff):
-        ship = self.findElement(id)
-        stuff = self.findElement(id_stuff)
+    def retirerFret(self, id, id_stuff):
+        vaisseau = self.rechercherElement(id)
+        fret = self.rechercherElement(id_stuff)
 
-        if not isinstance(ship, Transport):
-            raise ValueError("Ship must be a transporter !")
+        if not isinstance(vaisseau, Transport):
+            raise ValueError("Le vaisseau doit être un transporteur !")
 
-        ship.removeStuff(stuff)
+        vaisseau.retirerFret(fret)
 
-    def reload(self, id):
-        weapon = self.findElement(id)
-        if not isinstance(weapon, Blaster):
-            raise ValueError("Weapon must be a blaster ! ")
-        weapon.reload()
+    def recharger(self, id):
+        arme = self.rechercherElement(id)
+        if not isinstance(arme, Blaster):
+            raise ValueError("L'arme doit être un Blaster ! ")
+        arme.recharger()
 
-    def itemLocalisation(self, id):
-        item = self.findElement(id)
+    def localiserElement(self, id):
+        element = self.rechercherElement(id)
 
-        if item.location == None:
-            location = "On the stockage"
+        if element.location == None:
+            location = "Dans le Hangar."
         else:
-            location = item.location
+            location = element.location
         return location
 
-    def findElement(self, id=""):
+    def rechercherElement(self, id=""):
         idUpper = id.upper()
         splited = idUpper.split('-', 1)[0]
 
-        if splited == "HEAVY":
+        if splited == "LOURD":
             objectType = Combatant
-        elif splited == "LIGHT":
+        elif splited == "LEGER":
             objectType = Leger
         elif splited == "TC":
             objectType = TransportCombat
@@ -137,13 +142,13 @@ class StationSpatiale(metaclass=Singleton):
             objectType = Phaser
         elif splited == "BLASTER":
             objectType = Blaster
-        elif splited == "CONTENDER":
+        elif splited == "CONTENEUR":
             objectType = Conteneur
         else:
-            raise ValueError("Id must contain : Heavy , Light , TC ,Contender , Blaster or Phaser.")
+            raise ValueError("L'id doit contenir : Lourd / Leger / TC / Transport / Phaser / Blaser ou Conteneur.")
 
         for item in objectType.instance:
             if item.identifiant == idUpper:
                 return item
 
-        raise ValueError("Ship or weapon not found")
+        raise ValueError("Element non trouvé.")

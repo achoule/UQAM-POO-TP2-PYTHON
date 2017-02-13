@@ -9,12 +9,12 @@ class Blaster(Arme):
         Blaster._ID += 1
 
         self.pc_gaz = 0
-        self._mass = 2
+        self._masse = 2
         self.volume = 2
         self.identifiant = "BLASTER-{}".format(Blaster._ID)
         Blaster.instance[self] = self.identifiant
 
-    def reload(self):
+    def recharger(self):
         self.pc_gaz = 100
 
     def __repr__(self):

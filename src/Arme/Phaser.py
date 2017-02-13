@@ -7,7 +7,7 @@ class Phaser(Arme):
     def __init__(self):
         Phaser._ID += 1
 
-        self._mass = 1
+        self._masse = 1
         self.volume = 1
         self.identifiant = "PHASER-{}".format(Phaser._ID)
         Phaser.instance[self] = self.identifiant

@@ -9,11 +9,11 @@ class Conteneur(ElementPhysique):
 
         ElementPhysique.__init__(self)
 
-        self._mass = masse
+        self._masse = masse
         self.volume = volume
 
-        self.identifiant = "CONTENDER-{}".format(Conteneur._ID)
+        self.identifiant = "CONTENEUR-{}".format(Conteneur._ID)
         Conteneur.instance[self] = self.identifiant
 
     def __repr__(self):
-        return "{}, {}x{}".format(self.identifiant, self._mass, self.volume)
+        return "{}, {}x{}".format(self.identifiant, self._masse, self.volume)

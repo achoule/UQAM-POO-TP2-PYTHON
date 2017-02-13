@@ -12,7 +12,7 @@ class TransportCombat(Combatant, Transport):
         self.armement = []
         self.stuff = []
 
-        self._mass = 150
+        self._masse = 150
         self.volume = 200
         self.cap_armement = 5
         self.cap_volumique = 180
@@ -25,4 +25,4 @@ class TransportCombat(Combatant, Transport):
         return "{}".format(self.identifiant)
 
     def get_mass(self):
-        return Combatant.get_mass(self) + Transport.get_mass(self) - self._mass
+        return Combatant.get_mass(self) + Transport.get_mass(self) - self._masse

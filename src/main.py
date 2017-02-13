@@ -5,116 +5,116 @@ from src.Vaisseau.Combatant import Combatant
 
 station = StationSpatiale()
 
-print("*******Light BattleShip Creation*******")
-station.createShip("light")
-print("{}-Created".format(station.lightStock))
+print("*******Création Vaisseau Léger*******")
+station.creerVaisseau("leger")
+print("{}-Créé".format(station.hangarLeger))
 
-print("*******Transport-BattleShip Creation*******")
-station.createShip("TC")
-print("{}-Created".format(station.TCStock))
-
-
-print("*******Light BattleShip Creation*******")
-station.createShip("transport")
-print("{}-Created".format(station.transporterStock))
+print("*******Création Vaisseau de transport de combat*******")
+station.creerVaisseau("TC")
+print("{}-Créé".format(station.hangarTC))
 
 
-print("*******Blaster Creation*******")
-
-station.createWeapon("blaster")
-station.createWeapon("blaster")
-print("{}-Created".format(station.blasterStock))
+print("*******Création Vaisseau de transport*******")
+station.creerVaisseau("transport")
+print("{}-Créé".format(station.hangarTransporteur))
 
 
-print("*******Phaser Creation*******")
+print("*******Création de Blaster*******")
 
-station.createWeapon("phaser")
-station.createWeapon("phaser")
-station.createWeapon("phaser")
-station.createWeapon("phaser")
-print("{}-Created".format(station.phaserStock))
+station.creerArme("blaster")
+station.creerArme("blaster")
+print("{}-Créé".format(station.hangarBlaster))
 
 
-print("*******Contender Creation*******")
+print("*******Création de Phaser*******")
 
-station.createContener(1, 1)
-station.createContener(1, 1)
-station.createContener(1, 1)
-station.createContener(1, 1)
-station.createContener(1, 1)
-station.createContener(100, 10)
-station.createContener(100, 10)
-station.createContener(100, 10)
-station.createContener(100, 10)
-print("{}-Created".format(station.contenderStock))
+station.creerArme("phaser")
+station.creerArme("phaser")
+station.creerArme("phaser")
+station.creerArme("phaser")
+print("{}-Créé".format(station.hangarPhaser))
 
 
-print("*******Phaser on Light BattleShip*******")
+print("*******Création de Conteneurs*******")
 
-station.equipWeapon("light-1", "phaser-1")
-station.equipWeapon("light-1", "phaser-2")
-print("{}-Equipped".format(station.findElement("light-1").armement))
-
-print("*******Contender on Transporter*******")
-
-station.chargeStuff("transport-1", "contender-1")
-station.chargeStuff("transport-1", "contender-2")
-station.chargeStuff("transport-1", "contender-3")
-station.chargeStuff("transport-1", "contender-4")
-station.chargeStuff("transport-1", "contender-5")
-print("{}-Equipped".format(station.findElement("transport-1").stuff))
+station.creerConteneur(1, 1)
+station.creerConteneur(1, 1)
+station.creerConteneur(1, 1)
+station.creerConteneur(1, 1)
+station.creerConteneur(1, 1)
+station.creerConteneur(100, 10)
+station.creerConteneur(100, 10)
+station.creerConteneur(100, 10)
+station.creerConteneur(100, 10)
+print("{}-Créé".format(station.hangarConteneur))
 
 
-print("*******Light BattleShip on Transporter*******")
+print("*******Armement des Vaisseaux de combat Léger*******")
 
-station.chargeStuff("transport-1", "light-1")
-print("{}-Equipped".format(station.findElement("transport-1").stuff))
+station.equiperArme("leger-1", "phaser-1")
+station.equiperArme("leger-1", "phaser-2")
+print("{}-Equipé".format(station.rechercherElement("leger-1").armement))
 
+print("*******Chargement des conteneurs dans le vaisseau de transport*******")
 
-print("*******Phaser out of Light BattleShip*******")
-
-station.takeOffWeapon("light-1", "phaser-1")
-print("{}-removed".format(station.findElement("light-1").armement))
-
-
-print("*******Phaser on transporter*******")
-
-station.chargeStuff("transport-1", "phaser-1")
-print("{}-Equipped".format(station.findElement("transport-1").stuff))
-
-print("*******Weapon on Transport-BattleShip*******")
-
-station.equipWeapon("tc-1", "blaster-1")
-station.equipWeapon("tc-1", "blaster-2")
-station.equipWeapon("tc-1", "phaser-3")
-station.equipWeapon("tc-1", "phaser-4")
-print("{}-Equipped".format(station.findElement("tc-1").armement))
+station.chargerFret("transport-1", "conteneur-1")
+station.chargerFret("transport-1", "conteneur-2")
+station.chargerFret("transport-1", "conteneur-3")
+station.chargerFret("transport-1", "conteneur-4")
+station.chargerFret("transport-1", "conteneur-5")
+print("{}-Equipé".format(station.rechercherElement("transport-1").stuff))
 
 
-print("*******Transporter on Transport-BattleShip*******")
+print("*******Chargement d'un vaisseau léger dans le vaisseau de transport*******")
 
-station.chargeStuff("tc-1", "transport-1")
-print("{}-Equipped".format(station.findElement("tc-1").stuff))
+station.chargerFret("transport-1", "leger-1")
+print("{}-Equipé".format(station.rechercherElement("transport-1").stuff))
 
 
-print("*******Contender on Transport-BattleShip*******")
+print("*******Désarmement d'un Phaser du vaisseau de combat léger*******")
 
-station.chargeStuff("tc-1", "contender-6")
-station.chargeStuff("tc-1", "contender-7")
-station.chargeStuff("tc-1", "contender-8")
-station.chargeStuff("tc-1", "contender-9")
-print("{}-Equipped".format(station.findElement("tc-1").stuff))
+station.retirerArme("leger-1", "phaser-1")
+print("{}-removed".format(station.rechercherElement("leger-1").armement))
 
-print("*******Blasters Reload*******")
 
-for item in station.blasterStock:
-    item.reload()
-print("{}-Reloaded".format(station.blasterStock))
+print("*******Chargement d'un Phaser dans le vaisseau de transport*******")
 
-print("*******Transpor-BattleShip information : *******")
+station.chargerFret("transport-1", "phaser-1")
+print("{}-Equipé".format(station.rechercherElement("transport-1").stuff))
 
-print("Total Mass : {} t".format(station.findElement("tc-1").get_mass()))
-print("Capacity Volumique still available : {} m^3".format(station.findElement("tc-1").cap_volumique))
+print("*******Armement du vaisseau de transport de combat*******")
+
+station.equiperArme("tc-1", "blaster-1")
+station.equiperArme("tc-1", "blaster-2")
+station.equiperArme("tc-1", "phaser-3")
+station.equiperArme("tc-1", "phaser-4")
+print("{}-Equipé".format(station.rechercherElement("tc-1").armement))
+
+
+print("*******Chargement du vaisseau de transport dans le vaisseau de transport de combat*******")
+
+station.chargerFret("tc-1", "transport-1")
+print("{}-Equipé".format(station.rechercherElement("tc-1").stuff))
+
+
+print("*******Chargement de conteneurs dans le vaisseau de transprot de combat*******")
+
+station.chargerFret("tc-1", "conteneur-6")
+station.chargerFret("tc-1", "conteneur-7")
+station.chargerFret("tc-1", "conteneur-8")
+station.chargerFret("tc-1", "conteneur-9")
+print("{}-Equipé".format(station.rechercherElement("tc-1").stuff))
+
+print("*******Recharge en gaz des blasters*******")
+
+for item in station.hangarBlaster:
+    item.recharger()
+print("{}-Recharger".format(station.hangarBlaster))
+
+print("*******Information sur le Transport de combat  : *******")
+
+print("Masse total : {} t".format(station.rechercherElement("tc-1").get_mass()))
+print("Capacitée Volumique restante : {} m^3".format(station.rechercherElement("tc-1").cap_volumique))
 
 
 

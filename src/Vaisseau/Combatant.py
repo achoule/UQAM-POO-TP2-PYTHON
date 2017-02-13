@@ -1,4 +1,3 @@
-from src.Arme import Blaster
 from src.Arme.Arme import Arme
 from src.Vaisseau.Vaisseau import Vaisseau
 
@@ -12,50 +11,50 @@ class Combatant(Vaisseau):
 
         self.armement = []
 
-        self._mass = 100
+        self._masse = 100
         self.volume = 100
         self.cap_armement = 3
 
-        self.identifiant = "HEAVY-{}".format(Combatant._ID)
+        self.identifiant = "LOURD-{}".format(Combatant._ID)
         Combatant.instance[self] = self.identifiant
 
-    def equiperArme(self, weapon):
+    def equiperArme(self, arme):
 
-        if weapon.location is not None:
-            raise ValueError("This weapon is already on {}".format(weapon.location.identifiant))
-        if not isinstance(weapon, Arme):
-            raise ValueError("Only weapon can be added.")
+        if arme.location is not None:
+            raise ValueError("Cette arme est déjà dans : {}".format(arme.location.identifiant))
+        if not isinstance(arme, Arme):
+            raise ValueError("Seule une arme peut être équipé.")
 
-        if weapon.actif:
-            raise ValueError("Weapon {} already in use.".format(weapon.identifiant))
+        if arme.actif:
+            raise ValueError("L'arme {} est déjà utilisée.".format(arme.identifiant))
 
         if self.cap_armement == 0:
-            raise ValueError("This battleship cannot bring more weapon.")
+            raise ValueError("Ce vaisseau ne peut contenir plus d'arme.")
 
-        weapon.actif = True
-        self.armement.append(weapon)
-        weapon.location = self
+        arme.actif = True
+        self.armement.append(arme)
+        arme.location = self
         self.cap_armement -= 1
-        self.volume += weapon.volume
+        self.volume += arme.volume
 
 
-    def removeArme(self, weapon):
-        if not isinstance(weapon, Arme):
-            raise ValueError("Only weapon can be added.")
+    def retirerArme(self, arme):
+        if not isinstance(arme, Arme):
+            raise ValueError("Seule une arme peut être équipée.")
 
-        if weapon not in self.armement:
-            raise ValueError("This weapon isn't on the ship")
+        if arme not in self.armement:
+            raise ValueError("Cette arme n'est pas sur le vaisseau.")
 
-        self.armement.remove(weapon)
-        weapon.location = None
-        self.volume -= weapon.volume
+        self.armement.remove(arme)
+        arme.location = None
+        self.volume -= arme.volume
 
     def get_mass(self):
-        finalMass = self._mass
+        finalMasse = self._masse
         for item in self.armement:
-            finalMass += item.get_mass()
+            finalMasse += item.get_mass()
 
-        return finalMass
+        return finalMasse
 
 
 

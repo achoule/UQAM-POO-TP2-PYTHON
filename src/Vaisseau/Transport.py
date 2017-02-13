@@ -11,7 +11,7 @@ class Transport(Vaisseau):
 
         self.stuff = []
 
-        self._mass = 100
+        self._masse = 100
         self.volume = 100
         self.cap_volumique = 90
         self.cap_massique = 300
@@ -19,18 +19,18 @@ class Transport(Vaisseau):
         self.identifiant = "TRANSPORT-{}".format(Transport._ID)
         Transport.instance[self] = self.identifiant
 
-    def chargeStuff(self, item):
+    def chargerFret(self, item):
 
         if item.location is not None:
-            raise ValueError("This item is already on {}".format(item.location.identifiant))
+            raise ValueError("Cet objet est déjà sur : {}".format(item.location.identifiant))
         if not isinstance(item, ElementPhysique):
-            raise ValueError("You cannot add this item on this ship")
+            raise ValueError("Vous ne pouvez pas charger cet objet sur le vaisseau.")
 
         if self.cap_massique - item.get_mass() < 0:
-            raise ValueError("You don't have enough place to stock this")
+            raise ValueError("Cet objet est trop lourd.")
 
         if self.cap_volumique - item.volume < 0:
-            raise ValueError("You don't have enough place to stock this")
+            raise ValueError("Cet objet est trop gros.")
 
         self.stuff += [item]
         item.location = self
@@ -38,9 +38,9 @@ class Transport(Vaisseau):
         self.cap_massique -= item.get_mass()
         self.cap_volumique -= item.volume
 
-    def removeStuff(self, item):
+    def retirerFret(self, item):
         if not item in self.stuff:
-            raise ValueError("This item is not on the ship")
+            raise ValueError("Cet objet n'est pas sur le vaisseau.")
 
         self.stuff.remove(item)
         item.location = None
@@ -48,11 +48,11 @@ class Transport(Vaisseau):
         self.cap_volumique += item.volume
 
     def get_mass(self):
-        finalMass = self._mass
+        finalMasse = self._masse
         for item in self.stuff:
-            finalMass += item.get_mass()
+            finalMasse += item.get_mass()
 
-        return finalMass
+        return finalMasse
 
     def __repr__(self):
         return "{}".format(self.identifiant)
