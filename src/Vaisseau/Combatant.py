@@ -37,7 +37,6 @@ class Combatant(Vaisseau):
         self.cap_armement -= 1
         self.volume += arme.volume
 
-
     def retirerArme(self, arme):
         if not isinstance(arme, Arme):
             raise ValueError("Seule une arme peut être équipée.")
@@ -55,8 +54,6 @@ class Combatant(Vaisseau):
             finalMasse += item.get_mass()
 
         return finalMasse
-
-
 
     def __repr__(self):
         return "{}".format(self.identifiant)

@@ -4,6 +4,7 @@ from src.ElementPhysique import ElementPhysique
 class Conteneur(ElementPhysique):
     _ID = 0
     instance = {}
+
     def __init__(self, masse, volume):
         Conteneur._ID += 1
 

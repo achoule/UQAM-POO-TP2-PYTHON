@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../TP2/.idea/UQAM-POO-TP2.iml" filepath="$PROJECT_DIR$/../TP2/.idea/UQAM-POO-TP2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/UQAM-POO-TP2-PYTHON.iml" filepath="$PROJECT_DIR$/.idea/UQAM-POO-TP2-PYTHON.iml" />
     </modules>
   </component>
 </project>

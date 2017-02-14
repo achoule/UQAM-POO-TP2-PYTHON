@@ -13,46 +13,41 @@ from src.Vaisseau.TransportCombat import TransportCombat
 
 
 class StationSpatiale(metaclass=Singleton):
-    
-    # stoque des différents objets 
+    # Stockage des différents objets
     hangarLourd = []
     hangarLeger = []
     hangarTC = []
     hangarTransporteur = []
-
     hangarBlaster = []
     hangarPhaser = []
-
     hangarConteneur = []
 
-    #Type attendu : lourd / leger / tc ou transport
+    # Types attendus : Lourd / Leger / TC / Transport
     def creerVaisseau(self, type):
+        typeMajuscule = type.upper()  # Gestion de la casse
 
-        typeUp = type.upper() #gestion de la casse
-
-        if typeUp == "LOURD":
+        if typeMajuscule == "LOURD":
             vaisseau = Combatant()
             self.hangarLourd.append(vaisseau)
-        elif typeUp == "LEGER":
+        elif typeMajuscule == "LEGER":
             vaisseau = Leger()
             self.hangarLeger.append(vaisseau)
-        elif typeUp == "TC":
+        elif typeMajuscule == "TC":
             vaisseau = TransportCombat()
             self.hangarTC.append(vaisseau)
-        elif typeUp == "TRANSPORT":
+        elif typeMajuscule == "TRANSPORT":
             vaisseau = Transport()
             self.hangarTransporteur.append(vaisseau)
         else:
-            raise ValueError("Le type doit-être : Lourd / Leger / TC ou Transport.")
+            raise ValueError("Le type doit-être : Lourd / Leger / TC / Transport.")
 
-    #type attendu : blaster ou phaser
+    # Types attendus : Blaster / Phaser
     def creerArme(self, type):
-
-        typeUp = type.upper()
-        if typeUp == "PHASER":
+        typeMajuscule = type.upper()
+        if typeMajuscule == "PHASER":
             arme = Phaser()
             self.hangarPhaser.append(arme)
-        elif typeUp == "BLASTER":
+        elif typeMajuscule == "BLASTER":
             arme = Blaster()
             self.hangarBlaster.append(arme)
 
@@ -60,7 +55,7 @@ class StationSpatiale(metaclass=Singleton):
         conteneur = Conteneur(masse, volume)
         self.hangarConteneur.append(conteneur)
 
-    #referencer l'identifiant du vaisseau à équiper puis de l'arme à mettre dessus
+    # Referencer l'identifiant du vaisseau à équiper puis l'arme à mettre dessus
     def equiperArme(self, id, id_arme):
         vaisseau = self.rechercherElement(id)
         arme = self.rechercherElement(id_arme)
@@ -80,7 +75,6 @@ class StationSpatiale(metaclass=Singleton):
         else:
             raise ValueError("arme must be blaster or phaser and available in stock")
 
-
     def retirerArme(self, id, id_arme):
         vaisseau = self.rechercherElement(id)
         arme = self.rechercherElement(id_arme)
@@ -97,8 +91,7 @@ class StationSpatiale(metaclass=Singleton):
         fret = self.rechercherElement(id_stuff)
 
         if not isinstance(vaisseau, Transport):
-            raise ValueError("Le vaisseau doit être un transporteur!")
-
+            raise ValueError("Le vaisseau doit être un transporteur !")
 
         vaisseau.chargerFret(fret)
 
